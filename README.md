@@ -1,7 +1,7 @@
 # varint.c
 
 Read and write variable sized integers in C.  
-Designed to be efficent, and it's compatible with Protobuf and Go varints.
+Compatible with Protobuf and Go varints.
 
 ## API
 ```c
