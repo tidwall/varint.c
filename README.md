@@ -55,5 +55,5 @@ int main() {
 ## Running tests
 
 ```sh
-$ cc -DVARINT_TEST varint.c && ./a.out
+$ cc varint.c test.c && ./a.out
 ```

@@ -1,4 +1,10 @@
-// Copyright 2020 Joshua J Baker. All rights reserved.
+// https://github.com/tidwall/varint.c
+//
+// Copyright 2024 Joshua J Baker. All rights reserved.
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file.
+//
+// varint.c: Read and write variable sized integers in C.
 
 #ifndef VARINT_H
 #define VARINT_H
