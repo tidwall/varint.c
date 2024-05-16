@@ -8,6 +8,13 @@
 
 #include "varint.h"
 
+#ifdef __GNUC__
+// gcc does not like varint_read_u guards that have additional statements on a
+// single line, even though they are correct. 
+// I like them because they look cool.
+#pragma GCC diagnostic ignored "-Wmisleading-indentation"
+#endif 
+
 // varint_write_u writes a uint64 varint to data, which could be to 10 bytes.
 // Make sure that you provide a data buffer that can take 10 bytes!
 // Returns the number of bytes written.
