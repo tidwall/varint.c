@@ -9,9 +9,7 @@
 #include "varint.h"
 
 #ifdef __GNUC__
-// gcc does not like varint_read_u guards that have additional statements on a
-// single line, even though they are correct. 
-// I like them because they look cool.
+// ignore gcc warning for varint_read_u single line guards.
 #pragma GCC diagnostic ignored "-Wmisleading-indentation"
 #endif 
 
