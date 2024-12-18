@@ -13,10 +13,10 @@
 #pragma GCC diagnostic ignored "-Wmisleading-indentation"
 #endif 
 
-// varint_write_u writes a uint64 varint to data, which could be to 10 bytes.
+// varint_write_u64 writes a uint64 varint to data, which could be to 10 bytes.
 // Make sure that you provide a data buffer that can take 10 bytes!
 // Returns the number of bytes written.
-int varint_write_u(void *data, uint64_t x) {
+int varint_write_u64(void *data, uint64_t x) {
     char *str = data;
     uint64_t n = 0;
     n+=x>=0x80; str[0]=x|0x80; x>>=7;
@@ -33,22 +33,22 @@ int varint_write_u(void *data, uint64_t x) {
     return n+1;
 }
 
-// varint_write_i writes a int64 varint to data, which could be to 10 bytes.
+// varint_write_i64 writes a int64 varint to data, which could be to 10 bytes.
 // Make sure that you provide a data buffer that can take 10 bytes!
 // Returns the number of bytes written.
-int varint_write_i(void *buf, int64_t x) {
+int varint_write_i64(void *data, int64_t x) {
     uint64_t ux = (uint64_t)x << 1;
     if (x < 0) {
         ux = ~ux;
     }
-    return varint_write_u(buf, ux);
+    return varint_write_u(data, ux);
 }
 
-// varint_read_u reads a uint64 varint from data. 
+// varint_read_u64 reads a uint64 varint from data. 
 // Returns the number of bytes reads, or returns 0 if there's not enough data
 // to complete the read, or returns -1 if the data buffer does not represent
 // a valid uint64 varint.
-int varint_read_u(const void *data, size_t len, uint64_t *x) {
+int varint_read_u64(const void *data, size_t len, uint64_t *x) {
     const char *str = data;
     uint64_t b;
     *x = 0;
@@ -65,11 +65,11 @@ int varint_read_u(const void *data, size_t len, uint64_t *x) {
     return -1;
 }
 
-// varint_read_i reads a int64 varint from data. 
+// varint_read_i64 reads a int64 varint from data. 
 // Returns the number of bytes reads, or returns 0 if there's not enough data
 // to complete the read, or returns -1 if the data buffer does not represent
 // a valid int64 varint.
-int varint_read_i(const void *data, size_t len, int64_t *x) {
+int varint_read_i64(const void *data, size_t len, int64_t *x) {
     uint64_t ux;
     int n = varint_read_u(data, len, &ux);
     *x = (int64_t)(ux >> 1);
@@ -77,4 +77,24 @@ int varint_read_i(const void *data, size_t len, int64_t *x) {
         *x = ~*x;
     }
     return n;
+}
+
+// deprecated: use varint_write_i64
+int varint_write_i(void *data, int64_t x) {
+    return varint_write_i64(data, x);
+}
+
+// deprecated: use varint_write_u64
+int varint_write_u(void *data, uint64_t x) {
+    return varint_write_u64(data, x);
+}
+
+// deprecated: use varint_read_i64
+int varint_read_i(const void *data, size_t len, int64_t *x) {
+    return varint_read_i64(data, len, x);
+}
+
+// deprecated: use varint_read_u64
+int varint_read_u(const void *data, size_t len, uint64_t *x) {
+    return varint_read_u64(data, len, x);
 }
