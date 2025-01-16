@@ -47,7 +47,7 @@ int varint_read_u64(const void *data, size_t len, uint64_t *x) {
     }
     uint64_t b;
     *x = 0;
-    int i = 0;
+    size_t i = 0;
     while (i < len && i < 10) {
         b = bytes[i]; 
         *x |= (b & 127) << (7 * i); 
